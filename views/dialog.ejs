@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+</head>
+
+<body>
+    <div id="slick-login">
+    <h1>
+	    <p><%= user.name %>,</p>
+	    <p><b><%= client.name %></b> запрашивает доступ к контроллеру.</p>
+	    <p>Разрешить?</p>
+	</h1>
+
+        <form action="/dialog/authorize/decision" method="post">
+            <input name="transaction_id" type="hidden" value="<%= transactionId %>" />
+            <div>
+                <input type="submit" value="Разрешить" id="allow" />
+                <input type="submit" value="Запретить" name="cancel" id="deny" />
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
