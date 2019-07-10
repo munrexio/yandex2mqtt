@@ -18,6 +18,7 @@ git clone https://github.com/munrexio/yandex2mqtt /opt/yandex2mqtt
 Заходим в директорию и запускаем установку
 
 cd /opt/yandex2mqtt
+
 npm install
 
 Запускаем мост  (Перед запуском мост нужно настроить)
