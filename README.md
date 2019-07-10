@@ -1,5 +1,7 @@
 # yandex2mqtt
-Мост из Яндекс УД в MQTT на Node.js
+Мост из Яндекс УД в MQTT на Node.js 
+
+Поддержать автора https://www.tinkoff.ru/sl/81l76nCPnL1
 
 ## Установка
 
