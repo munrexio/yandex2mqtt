@@ -151,7 +151,7 @@ if (statPairs) {
                     var ind3 = findDevIndex(device.data.custom_data.mqtt, 'devices.capabilities.color_setting');
                     try {
 
-                        device.data.capabilities[ind3].state.value = parseInt(message);
+                        device.data.capabilities[ind3].state.value = JSON.parse(message);
                         console.log(`update device ${device.data.name} (${device.data.room}) state: `, device.data.capabilities[ind3].state);
                     } catch (err) {
 

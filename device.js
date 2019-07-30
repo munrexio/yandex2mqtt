@@ -48,7 +48,7 @@ class device {
           break;
       case 'devices.capabilities.color_setting':
           console.log(`Диммер RGB`);
-          int = val.toString().toLowerCase();
+          int = JSON.stringify(val);
           this.data.capabilities[this.findDevIndex(this.data.capabilities, 'devices.capabilities.color_setting')].state.value = val;
           topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, 'devices.capabilities.color_setting')].set || false;
           break;    
