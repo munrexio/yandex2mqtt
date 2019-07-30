@@ -84,7 +84,7 @@ app.post('/provider/v1.0/user/devices/action', routes.user.action);
 app.post('/provider//v1.0/user/unlink', routes.user.unlink);
 
 
-httpsServer.listen(3000);
+httpsServer.listen(config.https.port);
 
 
 function findDevIndex(arr, elem) {
