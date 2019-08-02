@@ -14,14 +14,13 @@ module.exports.ping = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     response.status(200);
-  	response.send('OK');
+    response.send('OK');
   }
 ];
 
 module.exports.devices = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  console.log('/v1.0/user/devices');
   var r = {
     request_id: "1",
     payload: {
@@ -31,7 +30,6 @@ module.exports.devices = [
   };
   for (var i in global.devices) {
     r.payload.devices.push(global.devices[i].getInfo());
-    //console.log(global.devices[i].getInfo());
   }
   
   response.status(200);
@@ -42,7 +40,6 @@ module.exports.devices = [
 module.exports.query = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  console.log('/v1.0/user/devices/query');
   const r = {
     request_id: '1',
     payload: {
@@ -59,7 +56,6 @@ module.exports.query = [
 module.exports.action = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  console.log('/v1.0/user/devices/action');
   var r = {
     request_id: "1",
     payload: {
@@ -70,11 +66,11 @@ module.exports.action = [
     var id = request.body.payload.devices[i].id;
     try {
 
-        var capabilities = global.devices[id].setState(request.body.payload.devices[i].capabilities[0].state.value , request.body.payload.devices[i].capabilities[0].type);
+        var capabilities = global.devices[id].setState(request.body.payload.devices[i].capabilities[0].state.value , request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance);
+           
     } catch (err) {
 
-        var capabilities = global.devices[id].setState(true , request.body.payload.devices[i].capabilities[0].type);
-
+        var capabilities = global.devices[id].setState(true , request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance);
     }
     
     r.payload.devices.push({ id: id, capabilities: capabilities });
@@ -86,7 +82,6 @@ module.exports.action = [
 module.exports.unlink = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  console.log('/v1.0/user/unlink : do nothing.');
   response.status(200);
   }
 ];

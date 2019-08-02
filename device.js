@@ -30,53 +30,42 @@ class device {
 
 
 
-  setState(val, type) {
+  setState(val, type, inst) {
     var int;   
     var topic; 
-    switch (type) {
-      case 'devices.capabilities.on_off':
-          console.log(`Вкл или выкл`); 
-          int = val ? '1' : '0';
-          this.data.capabilities[this.findDevIndex(this.data.capabilities, 'devices.capabilities.on_off')].state.value = val;
-          topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, 'devices.capabilities.on_off')].set || false;
-          break;
-      case 'devices.capabilities.range':
-          console.log(`Диммер`);
-          int = val.toString().toLowerCase();
-          this.data.capabilities[this.findDevIndex(this.data.capabilities, 'devices.capabilities.range')].state.value = val;
-          topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, 'devices.capabilities.range')].set || false;
-          break;
-      case 'devices.capabilities.color_setting':
-          console.log(`Диммер RGB`);
-          int = JSON.stringify(val);
-          this.data.capabilities[this.findDevIndex(this.data.capabilities, 'devices.capabilities.color_setting')].state.value = val;
-          topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, 'devices.capabilities.color_setting')].set || false;
-          break;    
-      case 'devices.capabilities.mode':
-          console.log(`Режимы`);
-          int = val.toString().toLowerCase();
-          this.data.capabilities[this.findDevIndex(this.data.capabilities, 'devices.capabilities.mode')].state.value = val;
-          topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, 'devices.capabilities.mode')].set || false;
-          break;   
-      case 'devices.capabilities.toggle':
-          console.log(`Звук`);
-          int = val.toString().toLowerCase();
-          this.data.capabilities[this.findDevIndex(this.data.capabilities, 'devices.capabilities.toggle')].state.value = val;
-          topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, 'devices.capabilities.toggle')].set || false;
-          break;      
+    switch (inst) {
+      case 'on' || 'mute':
+          try {
+            int = val ? '1' : '0';
+            this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.instance = inst;
+            this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.value = val;
+            topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, inst)].set || false;
+            break; 
+          } 
+          catch (err) {              
+            topic = false;
+            console.log(`ERROR`);
+          }       
       default:
-          topic = false;
-          console.log(`Не понятно`);
+          try {
+            int = JSON.stringify(val);
+            this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.instance = inst;
+            this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.value = val;
+            topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, inst)].set || false; 
+          } 
+          catch (err) {              
+            topic = false;
+            console.log(`ERROR`);
+          }  
     };
 
     if (topic) {
-      console.log(`mqtt: ${topic} ${int}`);
       this.client.publish(topic, int);
     }
     return [
       {
         'state': {
-          'instance': this.data.capabilities[0].state.instance,
+          'instance': inst,
           'action_result': {
             'status': 'DONE'
           }
@@ -84,17 +73,5 @@ class device {
       }
     ];
   };
-
-
-
-
-
-
-
-
-
-
-
-
 }
 module.exports = device;
