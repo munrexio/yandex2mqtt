@@ -196,6 +196,55 @@ module.exports = {
     //_________конец второго устройства_________//
 
 
+    //______Третье устройство____//
+
+        {
+            name: 'Кондиционер',
+            room: 'Комната',
+            type: 'devices.types.thermostat.ac',
+            mqtt: [
+                 {
+                    type: 'on',
+                    set: '/devices/yandex/controls/light9/on',
+                    stat: '/devices/yandex/controls/light9'
+                },
+                {
+                    type: 'temperature',
+                    set: '/devices/yandex/controls/light10/on',
+                    stat: '/devices/yandex/controls/light10'
+                },
+            ],
+            capabilities: [
+                {
+                    type: 'devices.capabilities.on_off',
+                    retrievable: true,
+                    state: {
+                        instance: 'on',
+                        value: true
+                    }
+                },
+                {
+                    type: 'devices.capabilities.range',
+                    retrievable: true,
+
+                    parameters: {
+                        instance: 'temperature',
+                        unit: 'unit.temperature.celsius',
+                        range: {
+                            min: 16,
+                            max: 40,
+                            precision: 1
+                        }
+                    },
+                    state: {
+                        instance: 'temperature',
+                        value: 25,
+                    },
+                },
+            ]
+        },
+    //____конец третьего устройства___//
+
 
 
 
