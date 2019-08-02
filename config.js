@@ -38,6 +38,7 @@ module.exports = {
     ],
 
     devices: [
+    //_______________Первое устройство______________//
         {
             name: 'Свет',
             room: 'Комната',
@@ -58,6 +59,11 @@ module.exports = {
                     set: '/devices/yandex/controls/light4/on',
                     stat: '/devices/yandex/controls/light4'
                 },
+                {
+                    type: 'brightness',
+                    set: '/devices/yandex/controls/light5/on',
+                    stat: '/devices/yandex/controls/light5'
+                },
             ],
             capabilities: [
                 {
@@ -67,6 +73,24 @@ module.exports = {
                         instance: 'on',
                         value: true
                     }
+                },
+                {
+                    type: 'devices.capabilities.range',
+                    retrievable: true,
+
+                    parameters: {
+                        instance: 'brightness',
+                        unit: 'unit.percent',
+                        range: {
+                            min: 0,
+                            max: 100,
+                            precision: 1
+                        }
+                    },
+                    state: {
+                        instance: 'brightness',
+                        value: 10,
+                    },
                 },
                 {
                     type: 'devices.capabilities.color_setting',
@@ -86,6 +110,94 @@ module.exports = {
                 },
             ]
         },
-          
+    //__________Конец первого устройства__________//
+    
+
+
+    // ________ Второе устройство___________//
+        {
+            name: 'Телевизор',
+            room: 'Комната',
+            type: 'devices.types.media_device.tv',
+            mqtt: [
+                 {
+                    type: 'on',
+                    set: '/devices/yandex/controls/light6/on',
+                    stat: '/devices/yandex/controls/light6'
+                },
+                {
+                    type: 'mute',
+                    set: '/devices/yandex/controls/light2/on',
+                    stat: '/devices/yandex/controls/light2'
+                },
+                {
+                    type: 'volume',
+                    set: '/devices/yandex/controls/light7/on',
+                    stat: '/devices/yandex/controls/light7'
+                },
+                {
+                    type: 'channel',
+                    set: '/devices/yandex/controls/light8/on',
+                    stat: '/devices/yandex/controls/light8'
+                },
+            ],
+            capabilities: [
+                {
+                    type: 'devices.capabilities.on_off',
+                    retrievable: true,
+                    state: {
+                        instance: 'on',
+                        value: true
+                    }
+                },
+                {
+                    type: 'devices.capabilities.toggle',
+                    retrievable: true,
+                    parameters: {
+                        instance: 'mute'
+                    },
+                    state: {
+                        instance: 'mute',
+                        value: true
+                    },
+                },
+
+                {
+                    type: 'devices.capabilities.range',
+                    retrievable: true,
+
+                    parameters: {
+                        instance: 'channel',
+                    },
+                    state: {
+                        instance: 'channel',
+                        value: 1,
+                    },
+                },
+                {
+                    type: 'devices.capabilities.range',
+                    retrievable: true,
+
+                    parameters: {
+                        instance: 'volume',
+                        range: {
+                            min: 0,
+                            max: 100,
+                            precision: 1
+                        }
+                    },
+                    state: {
+                        instance: 'volume',
+                        value: 10,
+                    },
+                },
+            ]
+        },
+    //_________конец второго устройства_________//
+
+
+
+
+
     ]
 }

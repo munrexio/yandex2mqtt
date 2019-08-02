@@ -70,7 +70,7 @@ module.exports.action = [
            
     } catch (err) {
 
-        var capabilities = global.devices[id].setState(true , request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance);
+        var capabilities = global.devices[id].setState(true , request.body.payload.devices[i].capabilities[0].type, 'mute');
     }
     
     r.payload.devices.push({ id: id, capabilities: capabilities });

@@ -44,7 +44,7 @@ class device {
           } 
           catch (err) {              
             topic = false;
-            console.log(`ERROR`);
+            console.log(err);
           }       
       default:
           try {
@@ -55,7 +55,7 @@ class device {
           } 
           catch (err) {              
             topic = false;
-            console.log(`ERROR`);
+            console.log(err);
           }  
     };
 
