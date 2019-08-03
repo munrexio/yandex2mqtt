@@ -34,7 +34,7 @@ class device {
     var int;   
     var topic; 
     switch (inst) {
-      case 'on' || 'mute':
+      case 'on':
           try {
             int = val ? '1' : '0';
             this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.instance = inst;
@@ -45,7 +45,19 @@ class device {
           catch (err) {              
             topic = false;
             console.log(err);
-          }       
+          }
+      case 'mute':
+          try {
+            int = val ? '1' : '0';
+            this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.instance = inst;
+            this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.value = val;
+            topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, inst)].set || false;
+            break; 
+          } 
+          catch (err) {              
+            topic = false;
+            console.log(err);
+          }          
       default:
           try {
             int = JSON.stringify(val);
