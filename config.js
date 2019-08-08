@@ -213,6 +213,16 @@ module.exports = {
                     set: '/devices/yandex/controls/light10/on',
                     stat: '/devices/yandex/controls/light10'
                 },
+                {
+                    type: 'thermostat',
+                    set: '/devices/yandex/controls/light11/on',
+                    stat: '/devices/yandex/controls/light11'
+                },
+                {
+                    type: 'fan_speed',
+                    set: '/devices/yandex/controls/light12/on',
+                    stat: '/devices/yandex/controls/light12'
+                },
             ],
             capabilities: [
                 {
@@ -241,11 +251,108 @@ module.exports = {
                         value: 25,
                     },
                 },
+                {
+                    type: 'devices.capabilities.mode',
+                    retrievable: true,
+                    parameters: {
+                        instance: 'thermostat',
+                        modes:  [
+                            {
+                                value: 'heat'
+                            },
+                            {
+                                value: 'cool'
+                            },
+                            {
+                                value: 'auto'
+                            },
+                            {
+                                value: 'eco'
+                            },
+                            {
+                                value: 'dry'
+                            },
+                            {
+                                value: 'fan_only'
+                            },
+                        ],
+                    },
+                    state: {
+                        instance: 'thermostat',
+                        value: 'fan_only',
+                    },
+                },
+                {
+                    type: 'devices.capabilities.mode',
+                    retrievable: true,
+                    parameters: {
+                        instance: 'fan_speed',
+                        modes:  [
+                            {
+                                value: 'auto'
+                            },
+                            {
+                                value: 'low'
+                            },
+                            {
+                                value: 'medium'
+                            },
+                            {
+                                value: 'high'
+                            },
+                        ],
+                        ordered: true,
+                    },
+                    state: {
+                        instance: 'fan_speed',
+                        value: 'auto',
+                    },
+                },
             ]
         },
     //____конец третьего устройства___//
 
+    //_______________Устройство с HSV______________//
+        {
+            name: 'Лампочка',
+            room: 'Комната',
+            type: 'devices.types.light',
+            mqtt: [
+                 {
+                    type: 'on',
+                    set: '/devices/yandex/controls/light13/on',
+                    stat: '/devices/yandex/controls/light13'
+                },
+                {
+                    type: 'hsv',
+                    set: '/devices/yandex/controls/light14/on',
+                    stat: '/devices/yandex/controls/light14'
+                },
 
+            ],
+            capabilities: [
+                {
+                    type: 'devices.capabilities.on_off',
+                    retrievable: true,
+                    state: {
+                        instance: 'on',
+                        value: true
+                    }
+                },
+                {
+                    type: 'devices.capabilities.color_setting',
+                    retrievable: true,
+                    parameters: {
+                        color_model: 'hsv',
+                    },
+                    state: {
+                        instance: 'hsv',
+                        value: {h: 0, s: 0, v: 0}
+                    },
+                },
+            ]
+        },
+    //__________Конец устройства__________//
 
 
     ]
