@@ -18,6 +18,7 @@ apt-get install -y nodejs git make g++ gcc build-essential
 git clone https://github.com/munrexio/yandex2mqtt.git /mnt/data/root/yandex2mqtt
 
 Задаём права.
+
 chown -R root:root /mnt/data/root/yandex2mqtt
 
 Заходим в директорию и запускаем установку
@@ -35,30 +36,43 @@ npm start
 В папке  /etc/systemd/system/ создайте файл yandex2mqtt.service и впишите в него:
 
 [Unit]
+
 Description=yandex2mqtt
+
 After=network.target
 
+
 [Service]
+
 ExecStart=/usr/bin/npm start
+
 WorkingDirectory=/mnt/data/root/yandex2mqtt
+
 StandardOutput=inherit
+
 StandardError=inherit
+
 Restart=always
+
 User=root
 
+
 [Install]
+
 WantedBy=multi-user.target
 
 
-Для включения сервиса впишите в консоль
-:
+Для включения сервиса впишите в консоль:
+
 systemctl enable yandex2mqtt.service
 
 
 После этого можно управлять командами:
 
 service yandex2mqtt start
+
 service yandex2mqtt stop
+
 service yandex2mqtt restart
 
 
