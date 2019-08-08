@@ -15,17 +15,52 @@ apt-get install -y nodejs git make g++ gcc build-essential
 
 Копируем файлы
 
-git clone https://github.com/munrexio/yandex2mqtt /opt/yandex2mqtt
+git clone https://github.com/munrexio/yandex2mqtt.git /mnt/data/root/yandex2mqtt
+
+Задаём права.
+chown -R root:root /mnt/data/root/yandex2mqtt
 
 Заходим в директорию и запускаем установку
 
-cd /opt/yandex2mqtt
+cd /mnt/data/root/yandex2mqtt
 
 npm install
 
 Запускаем мост  (Перед запуском мост нужно настроить)
 
 npm start
+
+## Автозапуск
+
+В папке  /etc/systemd/system/ создайте файл yandex2mqtt.service и впишите в него:
+
+[Unit]
+Description=yandex2mqtt
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/npm start
+WorkingDirectory=/mnt/data/root/yandex2mqtt
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
+
+Для включения сервиса впишите в консоль
+:
+systemctl enable yandex2mqtt.service
+
+
+После этого можно управлять командами:
+
+service yandex2mqtt start
+service yandex2mqtt stop
+service yandex2mqtt restart
+
 
 ## Настройка
 
@@ -42,7 +77,7 @@ npm start
 
 4) users: Укажите параметры пользователей для доступа к мосту.
 
-5) devices: Укажите необходимые девайсы и топики MQTT для управления. (TODO: Подробнее описать настройку девайсов)
+5) devices: Укажите необходимые девайсы и топики MQTT для управления. В конфиге уже вписанно несколько устройств для примера их конфигурации. (TODO: Подробнее описать настройку девайсов)
 
 ## Создание навыка
 
@@ -60,7 +95,7 @@ Endpoint URL: https://вашдомен/provider
 
 Название: Любое
 
-Идентификатор  и секрет : берем из конфигурации моста "clients".
+Идентификатор  и секрет : берем из конфигурации yandex2mqtt в блоке "clients".
 
 URL авторизации: https://вашдомен/dialog/authorize
 
@@ -72,4 +107,4 @@ URL для получения токена: https://вашдомен/oauth/token
 
 Навык появится в приложении Яндекс в разделе "Устройства" => умный дом. 
 
-TODO: Пошаговая инструкция.
+Свяжите аккаунты и обновите список устройств. После этого устройства будут доступны для управления через Алису. 
