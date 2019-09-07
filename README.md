@@ -1,6 +1,8 @@
 # yandex2mqtt
 Мост из Яндекс УД в MQTT на Node.js 
 
+Статья на Хабре https://habr.com/ru/post/465537/
+
 Поддержать автора https://www.tinkoff.ru/sl/81l76nCPnL1
 
 ## Установка
