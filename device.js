@@ -76,6 +76,7 @@ class device {
     }
     return [
       {
+      	'type': type,
         'state': {
           'instance': inst,
           'action_result': {
