@@ -73,7 +73,7 @@ app.get('/provider', routes.user.ping);
 app.get('/provider/v1.0/user/devices', routes.user.devices);
 app.post('/provider/v1.0/user/devices/query', routes.user.query);
 app.post('/provider/v1.0/user/devices/action', routes.user.action);
-app.post('/provider//v1.0/user/unlink', routes.user.unlink);
+app.post('/provider/v1.0/user/unlink', routes.user.unlink);
 httpsServer.listen(config.https.port);
 
 
