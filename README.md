@@ -3,8 +3,6 @@
 
 Статья на Хабре https://habr.com/ru/post/465537/
 
-Поддержать автора https://www.tinkoff.ru/sl/81l76nCPnL1
-
 ## Установка
 
 Настраиваем репозиторий Node JS
