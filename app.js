@@ -68,12 +68,12 @@ app.post('/dialog/authorize/decision', routes.oauth2.decision);
 app.post('/oauth/token', routes.oauth2.token);
 app.get('/api/userinfo', routes.user.info);
 app.get('/api/clientinfo', routes.client.info);
-app.get('/provider/v1.0', routes.user.ping);
+app.get('/v1.0', routes.user.ping);
 app.get('/provider', routes.user.ping);
-app.get('/provider/v1.0/user/devices', routes.user.devices);
-app.post('/provider/v1.0/user/devices/query', routes.user.query);
-app.post('/provider/v1.0/user/devices/action', routes.user.action);
-app.post('/provider/v1.0/user/unlink', routes.user.unlink);
+app.get('/v1.0/user/devices', routes.user.devices);
+app.post('/v1.0/user/devices/query', routes.user.query);
+app.post('/v1.0/user/devices/action', routes.user.action);
+app.post('/v1.0/user/unlink', routes.user.unlink);
 httpsServer.listen(config.https.port);
 
 
