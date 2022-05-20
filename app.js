@@ -107,118 +107,117 @@ global.devices.forEach(device => {
 if (statPairs) {
     client.on('connect', () => {
         client.subscribe(statPairs.map(pair => pair.topic));
-        client.on('message', (topic, message) => {
-            const matchedDeviceId = statPairs.findIndex(pair => topic.toLowerCase() === pair.topic.toLowerCase());
-            if (matchedDeviceId == -1) return;
-
-            const device = global.devices.find(device => device.data.id == statPairs[matchedDeviceId].deviceId);
-            var devindx;
-            switch (statPairs[matchedDeviceId].topicType) {
-                case 'on':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.on_off')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = ['on', '1', 'true'].includes(message.toString().toLowerCase());
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'mute':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.toggle')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = ['on', '1', 'true'].includes(message.toString().toLowerCase());
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'hsv':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.color_setting')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'rgb':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.color_setting')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'temperature_k':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.color_setting')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;        
-                case 'thermostat':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.mode')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'fan_speed':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.mode')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;    
-                case 'brightness':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'temperature':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'volume':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;
-                case 'channel':
-                    try {
-                        devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
-                        device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
-                        device.data.capabilities[devindx].state.value = JSON.parse(message);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                    break;                        
-                default:
-                    console.log('Unknown topic Type: ' + statPairs[matchedDeviceId].topicType);
-            };
-        });
     });
+    client.on('message', (topic, message) => {
+        const matchedDeviceId = statPairs.findIndex(pair => topic.toLowerCase() === pair.topic.toLowerCase());
+        if (matchedDeviceId == -1) return;
 
+        const device = global.devices.find(device => device.data.id == statPairs[matchedDeviceId].deviceId);
+        var devindx;
+        switch (statPairs[matchedDeviceId].topicType) {
+            case 'on':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.on_off')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = ['on', '1', 'true'].includes(message.toString().toLowerCase());
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'mute':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.toggle')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = ['on', '1', 'true'].includes(message.toString().toLowerCase());
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'hsv':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.color_setting')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'rgb':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.color_setting')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'temperature_k':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.color_setting')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;        
+            case 'thermostat':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.mode')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'fan_speed':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.mode')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;    
+            case 'brightness':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'temperature':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'volume':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;
+            case 'channel':
+                try {
+                    devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
+                    device.data.capabilities[devindx].state.instance = statPairs[matchedDeviceId].topicType;
+                    device.data.capabilities[devindx].state.value = JSON.parse(message);
+                } catch (err) {
+                    console.log(err);
+                }
+                break;                        
+            default:
+                console.log('Unknown topic Type: ' + statPairs[matchedDeviceId].topicType);
+        };
+    });
     client.on('offline', () => {
     });
 }
